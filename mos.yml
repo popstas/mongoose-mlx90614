@@ -1,0 +1,46 @@
+author: popstas
+description: IR temp monitor
+version: 1.0.0
+
+libs_version: ${mos.version}
+modules_version: ${mos.version}
+mongoose_os_version: ${mos.version}
+platform: esp8266
+
+filesystem:
+  - fs
+
+config_schema:
+  - ["app", "o", "", {"title": "Button settings"}]
+  - ["app.mqtt_base", "s", "temp-ir", {"title": "MQTT base topic"}]
+  - ["i2c.enable", true]
+  - ["i2c.debug", true]
+  # https://steve.fi/Hardware/d1-pins/
+  - ["i2c.sda_gpio", "i", 4, {title: "GPIO to use for SDA"}] # D2
+  - ["i2c.scl_gpio", "i", 5, {title: "GPIO to use for SCL"}] # D1
+  - ["mqtt.enable", true]
+  - ["mqtt.reconnect_timeout_min", 2]
+  - ["mqtt.reconnect_timeout_max", 300]
+#   - ["mqtt.user", "s", "popstas", {title: "MQTT user"}]
+#   - ["mqtt.pass", "s", "", {title: "MQTT password"}]
+#  - ["debug.level", 3]
+
+libs:
+  # - origin: https://github.com/mongoose-os-libs/js-demo-bundle
+  # - origin: https://github.com/mongoose-os-libs/arduino-adafruit-bme280
+  # - origin: https://github.com/mongoose-os-libs/adc
+  - origin: https://github.com/mongoose-os-libs/boards
+  # - origin: https://github.com/mongoose-os-libs/ca-bundle
+  # - origin: https://github.com/mongoose-os-libs/dash
+  - origin: https://github.com/mongoose-os-libs/i2c
+  - origin: https://github.com/mongoose-os-libs/mjs
+  - origin: https://github.com/mongoose-os-libs/mqtt
+  # - origin: https://github.com/mongoose-os-libs/ota-http-client
+  # - origin: https://github.com/mongoose-os-libs/ota-http-server # https://mongoose-os.com/docs/mongoose-os/userguide/ota.md
+  - origin: https://github.com/mongoose-os-libs/rpc-service-config
+  - origin: https://github.com/mongoose-os-libs/rpc-service-fs
+  - origin: https://github.com/mongoose-os-libs/rpc-uart
+  - origin: https://github.com/mongoose-os-libs/wifi
+
+# Used by the mos tool to catch mos binaries incompatible with this file format
+manifest_version: 2017-09-29
