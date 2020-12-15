@@ -7,6 +7,8 @@ load('api_mqtt.js');
 load('api_timer.js');
 
 // globals
+let baseTopic = Cfg.get('app.mqtt_base');
+
 let last = {
   temp: '0',
   aux: '0'
@@ -42,7 +44,10 @@ function start() {
   GPIO.blink(Cfg.get('board.led1.pin'), 1000, 1000);
 
   MQTT.setEventHandler(function(conn, ev, edata) {
-    if (ev === MQTT.EV_CONNACK) GPIO.blink(Cfg.get('board.led1.pin'), 0, 0);
+    if (ev === MQTT.EV_CONNACK) {
+      MQTT.pub(Cfg.get('mqtt.will_topic'), 'Online', 1, Cfg.get('mqtt.will_retain'))
+      GPIO.blink(Cfg.get('board.led1.pin'), 0, 0);
+    }
     if (ev === MQTT.EV_CLOSE) GPIO.blink(Cfg.get('board.led1.pin'), 1000, 1000);
   }, null);
 
@@ -63,8 +68,6 @@ function start() {
       // serial output
       print('temp: ', data.temp);
       print('aux: ', data.aux);
-  
-      let baseTopic = Cfg.get('app.mqtt_base');
   
       // publish to mqtt metrics if changed or per minute
       let names = ['temp', 'aux'];

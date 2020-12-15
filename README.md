@@ -1,4 +1,4 @@
-MLX90614, GY-906 sensor on Mongoose OS, publish to MQTT.
+MLX90614 (GY-906) sensor on Mongoose OS, publish to MQTT.
 
 MQTT send only on change or 1 per minute.
 
@@ -10,3 +10,4 @@ MQTT send only on change or 1 per minute.
 ### Default MQTT topics:
 - `temp-ir/temp`
 - `temp-ir/aux`
+- `temp-ir/LWT`

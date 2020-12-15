@@ -19,6 +19,9 @@ config_schema:
   - ["i2c.sda_gpio", "i", 4, {title: "GPIO to use for SDA"}] # D2
   - ["i2c.scl_gpio", "i", 5, {title: "GPIO to use for SCL"}] # D1
   - ["mqtt.enable", true]
+  - ["mqtt.will_topic", "temp-ir/LWT"]
+  - ["mqtt.will_message", "Offline"]
+  - ["mqtt.will_retain", true]
   - ["mqtt.reconnect_timeout_min", 2]
   - ["mqtt.reconnect_timeout_max", 300]
 #   - ["mqtt.user", "s", "popstas", {title: "MQTT user"}]
