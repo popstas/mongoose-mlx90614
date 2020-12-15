@@ -1,7 +1,7 @@
 // mongoose-mlx90614
 load('api_config.js');
 load('api_esp8266.js');
-// load('api_gpio.js');
+load('api_gpio.js');
 load('api_i2c.js');
 load('api_mqtt.js');
 load('api_timer.js');
@@ -37,6 +37,15 @@ function readData() {
 }
 
 function start() {
+  // setup led
+  GPIO.setup_output(Cfg.get('board.led1.pin'), 1);
+  GPIO.blink(Cfg.get('board.led1.pin'), 1000, 1000);
+
+  MQTT.setEventHandler(function(conn, ev, edata) {
+    if (ev === MQTT.EV_CONNACK) GPIO.blink(Cfg.get('board.led1.pin'), 0, 0);
+    if (ev === MQTT.EV_CLOSE) GPIO.blink(Cfg.get('board.led1.pin'), 1000, 1000);
+  }, null);
+
   Timer.set(
     1000,
     true,
